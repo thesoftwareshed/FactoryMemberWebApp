@@ -1,0 +1,86 @@
+<!--Check session is started or not: -->
+<?php
+	include "conn.php"; 
+?>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Index</title>
+</head>
+<body>
+<div id="main">
+<?php
+//Is the user already logged in:
+if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
+{
+	?>
+	<h1>The Factory Member Area Test</h1>
+	<?php
+}
+//If the user has already submitted there login details:
+elseif(!empty($_POST['username']) && !empty($_POST['password']))
+{
+	$username = mysql_real_escape_string($_POST['username']);
+	$password = md5(mysql_real_escape_string($_POST['password']));
+	
+	//Check to see if the username and password match with a row in the table:
+	$checklogin = mysql_query("SELECT * FROM members WHERE Username = '".$username."' AND Password = '".$password."'");
+	
+	//If the user exists (there is a row in the database):
+	if(mysql_num_rows($checklogin)==1)
+	{
+		$row = mysql_fetch_array($checklogin);
+		$email = $row['Email'];
+		$credits = $row['Credit'];
+		
+		
+		$_SESSION['Username']=$username;
+		$_SESSION['EmailAddress']=$email;
+		$_SESSION['Credits']=$credits;
+		$_SESSION['LoggedIn']=1;
+		
+		echo "<h1>Success</h1>";
+		echo "<meta http-equiv='refresh' content='=2;index.php' />";
+ 	}
+	else
+	{
+		echo"<h1>Error</h1>";
+	}
+}
+else
+{
+	?>
+	<h1>Member Login</h1>
+	<p>Thanks For Visiting!</p>
+	<form method ="post" action="index.php" name="loginform" id="loginform">
+	<fieldset>
+		<label for="username">Username:</label><input type="text" name="username" id="username"/><br/>
+		<label for="password">Password:</label><input type="password" name="password" id="password"/><br/>
+		<input type="submit" name="login" id="login" value="Login"/>
+	</fieldset>
+	</form>
+	<?php
+}
+?>
+
+
+
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

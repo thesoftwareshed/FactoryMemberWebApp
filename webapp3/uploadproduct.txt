@@ -1,0 +1,15 @@
+<?php
+	include "conn.php"; 
+	include "header.php";
+	include "sidebar.php"
+?>
+<body>
+<div id="main" style="margin-left:25%">
+<h1>SHOP</h1>
+<form enctype="multipart/form-data" action="uploader.php" method="POST">
+<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+Choose a file to upload: <input name="uploadedfile" type="file" /><br />
+<input type="submit" value="Upload File" />
+</form>
+</div>
+</body>
