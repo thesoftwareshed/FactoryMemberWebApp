@@ -1,5 +1,5 @@
 <!-- File Upload code inspired by 
-	http://www.tizag.com/phpT/fileupload.php?MAX_FILE_SIZE=100000&uploadedfile=
+	https://www.w3schools.com/php/php_file_upload.asp
 -->
 <?php
 	include_once "conn.php"; 
@@ -15,10 +15,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username'])){
 	if ($_SESSION['FMember']==0){
 	echo"YOU ARE NOT A FACTORY MEMBER!<p>Contact an administrator to request permission.</p>";}
 	else{ ?>
-	<form enctype="multipart/form-data" action="uploader.php" method="POST">
-	<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-	Choose a file to upload: <input name="uploadedfile" type="file" /><br />
-	<input type="submit" value="Upload File" />
+	<form action="uploader.php" method="post" enctype="multipart/form-data">
+    Select image to upload:
+    <input type="file" name="fileToUpload" id="fileToUpload">
+    <input type="submit" value="Upload Image" name="submit">
+	</form>
 	<?php
 	}
 }
